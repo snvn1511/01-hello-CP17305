@@ -1,42 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { useState } from 'react';
+import * as React from 'react'; 
+import { Button, ScrollView, Text, TextInput, View, StyleSheet, TouchableHighlight } from 'react-native';
  
 
-const CompCon1 = (props)=>{
-
-  // gửi sang cha:
-  props.goiHamCha("Dữ liệu của con");
-
-    return (
-      <View>
-        <Text style={{fontSize:20}}>
-            Ho ten: {props.hoTen}  {"\n"}
-            Tuoi: {props.tuoi}
-        </Text>
-      </View>
-    );
-}
-
-export default function App() {
-  const [duLieuCon1, setduLieuCon1] = useState("");
-  
-  const callback_ComCon1 = (data_con)=>{
-        setduLieuCon1( data_con );
-  }
-
+ 
+let duLieu = [
+  {name:'dien thoai', price: 30},
+  {name:'tivi', price: 30},
+  {name:'maytinh', price: 30}
+ 
+]
+const ItemDulieu = (props)=>{
+  // console.log(props);
   return (
-    <View  style={  {paddingTop:50, paddingLeft:20} }>
-       
-       <Text style={DinhDang.nodung} > Dữ liệu con:  { duLieuCon1 }</Text>
-      <CompCon1 hoTen = "Nguyen A" tuoi = "20"
-                goiHamCha={callback_ComCon1} />
+    <View style={{ margin:10, backgroundColor:"cyan", padding:10}}>
+      <Text>Name: {props.name} -- price: {props.price}</Text>
     </View>
   );
 }
+const DemoApp = () => {
  
-const DinhDang = StyleSheet.create({
-      nodung:{
-        fontSize:20, color:'red'
-      }
-});
+  return (
+    <View> 
+        <View style={{margin:20}} />
+        <ScrollView style={{height:'100%', backgroundColor:"yellow"}}>
+         
+        {
+            duLieu.map( (item, index, arr)=>{
+              // console.log(item);
+              return <ItemDulieu key={index} name={item.name} price={item.price} />
+            })
+        }
+        </ScrollView>
+    </View>
+  )
+}
+
+
+export default DemoApp;
+
